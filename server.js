@@ -165,9 +165,13 @@ router.post('/boats', checkJwt, function(req, res){
     });
 });
 
-router.get('/owners/:owner/boats', function(req, res){
-    const boats = get_owner_boat(req.params.owner)
-    .then ((boats) => {res.status(200).json(boats);});
+router.get('/owners/:owner/boats', async function(req, res){
+    const boats = await get_owner_boat(req.params.owner);
+    const boatsWithIds = boats.map((boat) => {
+        const boatId = boat[datastore.KEY].id;
+        return Object.assign({ id: boatId }, boat);
+    });
+    res.status(200).json(boatsWithIds);
 });
 
 

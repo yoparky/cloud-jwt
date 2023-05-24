@@ -176,8 +176,12 @@ router.get('/boats', checkJwt, async function(req, res){
     const owner = req.user ? req.user.sub : null;
     const q = owner ? datastore.createQuery(BOAT).filter('owner', '=', owner)
                     : datastore.createQuery(BOAT).filter('public', '=', true);
-    get_boats(q)
-    .then ((boats) => {res.status(200).json(boats);});
+    const boats = await get_boats(q);
+    const boatsWithIds = boats.map((boat) => {
+        const boatId = boat[datastore.KEY].id;
+        return Object.assign({ id: boatId }, boat);
+    });
+    res.status(200).json(boatsWithIds);
 });
 
 router.delete('/boats/:boat_id', checkJwt, async function(req, res){

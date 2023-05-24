@@ -56,7 +56,7 @@ const { auth } = require('express-openid-connect');
 const config = {
   authRequired: false,
   auth0Logout: true,
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://a7-jwt.uc.r.appspot.com',
   clientID: 'Flobmhc4jGDbDWLJIJ69eVBI8KBibOMg',
   issuerBaseURL: 'https://a7-jwt.us.auth0.com',
   secret: 'vItKIt4yrqz056QeeTSixSdmqw4a652nEl3_haDZqVMJfQ6ZfmQ2mb4aZJVwVlpJ'
